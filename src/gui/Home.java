@@ -33,46 +33,43 @@ public class Home extends JFrame  {
         });
 
         cursoAdministacao.setSize(100, 60);
-        cursoAdministacao.addActionListener( event -> {
-            JOptionPane.showMessageDialog(null,
-                    String.format("Turma: %s\nProfessor: %s\nMensalidade: %s\n\nAlunos: \n%s",
-                            t[0].getNomeTurma(),
-                            t[0].getProfessor().getNome(),
-                            t[0].getCurso().getMensalidade(),
-                            t[0].alunosToString()
-                    )
-            );
-        });
+        cursoAdministacao.addActionListener( event -> showInfoCurso(t, 0) );
 
         cursoInformatica.setSize(100, 60);
-        cursoInformatica.addActionListener( event -> {
-            JOptionPane.showMessageDialog(null,
-                    String.format("Turma: %s\nProfessor: %s\nMensalidade: %s\n\nAlunos: \n%s",
-                            t[1].getNomeTurma(),
-                            t[1].getProfessor().getNome(),
-                            t[1].getCurso().getMensalidade(),
-                            t[1].alunosToString()
-                    )
-            );
-        });
+        cursoInformatica.addActionListener( event -> showInfoCurso(t, 1));
 
         cursoIngles.setSize(100, 60);
-        cursoIngles.addActionListener( event -> {
-            JOptionPane.showMessageDialog(null,
-                    String.format("Turma: %s\nProfessor: %s\nMensalidade: %s\n\nAlunos: \n%s",
-                            t[2].getNomeTurma(),
-                            t[2].getProfessor().getNome(),
-                            t[2].getCurso().getMensalidade(),
-                            t[2].alunosToString()
-                    )
-            );
-        });
+        cursoIngles.addActionListener( event -> showInfoCurso(t, 2));
 
         add(cadastroAluno);
         add(cadastroProfessor);
         add(cursoAdministacao);
         add(cursoInformatica);
         add(cursoIngles);
+
+    }
+
+    // Exibe as informações do curso em um modal
+    private static void showInfoCurso(Turma[] t, int indiceturma) {
+
+        String alunos = t[indiceturma].alunosToString();
+
+        if(alunos == "") {
+            alunos = "Ainda não há alunos cadastrados nesse curso";
+        }
+
+        try{
+            JOptionPane.showMessageDialog(null,
+                    String.format("Turma: %s\nProfessor: %s\nMensalidade: %s\n\nAlunos: \n%s",
+                            t[indiceturma].getNomeTurma(),
+                            t[indiceturma].getProfessor().getNome(),
+                            t[indiceturma].getCurso().getMensalidade(),
+                            alunos
+                    )
+            );
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(null, "Ops!! parece que os dados nao foram preenchidos corretamente.\nMas não se preoculpe, ja estamos trabalhando no tratamento desse tipo de exções!!");
+        }
 
     }
 }

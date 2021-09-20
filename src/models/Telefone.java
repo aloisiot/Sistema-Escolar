@@ -25,4 +25,11 @@ public class Telefone {
     public void setTipo(TelefoneTipo tipo) {
         this.tipo = tipo;
     }
+
+    public static boolean validate(Telefone t) {
+        if(t == null || t.getNumero() == "" || t.getNumero().length() > 12 || !t.getNumero().matches("[0-9]+"))
+            return false;
+
+        return true;
+    }
 }

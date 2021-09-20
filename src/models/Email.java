@@ -25,4 +25,11 @@ public class Email {
     public void setTipo(EmailTipo tipo) {
         this.tipo = tipo;
     }
+
+    public static boolean validate(Email e) {
+        if(e == null || e.getEmail() == "" || e.getEmail().matches("^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"))
+            return false;
+
+        return true;
+    }
 }

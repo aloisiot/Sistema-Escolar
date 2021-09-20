@@ -3,6 +3,7 @@ package gui;
 import models.Endereco;
 
 import javax.swing.*;
+import javax.xml.transform.TransformerConfigurationException;
 import java.awt.*;
 
 public class CadastroEndereco extends JFrame {
@@ -61,7 +62,21 @@ public class CadastroEndereco extends JFrame {
         add(botaoEnviar);
 
         botaoEnviar.addActionListener( event ->{
-                endereco.setNumero(Integer.valueOf(numero.getText()));
+
+            String msgErr = "";
+            int n = 0;
+
+            // Validação;
+            try{
+                n = Integer.valueOf(numero.getText());
+            } catch (Throwable err){
+                msgErr = "O campo NUMERO deve conter apenas números";
+                JOptionPane.showMessageDialog(null, msgErr);
+            }
+
+            if(msgErr.length() == 0){
+
+                endereco.setNumero(n);
                 endereco.setLogradouro(logradouro.getText());
                 endereco.setBairro(bairro.getText());
                 endereco.setCidade(cidade.getText());
@@ -69,6 +84,9 @@ public class CadastroEndereco extends JFrame {
 
                 // Esconde a janela apos o cadastro ser concluido
                 setVisible(false);
+
+            }
+
         });
 
     }
